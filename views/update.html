@@ -1,0 +1,40 @@
+{{define "title"}}
+Update Book
+{{end}}
+
+{{define "main"}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="/update/{{ .Book.ID }}" method="post">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Buku</label>
+                            <input type="text" class="form-control" name="name" value="{{ .Book.Name }}"
+                                placeholder="Masukan nama buku...">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="authro" class="form-label">Author</label>
+                        <input type="text" name="author" class="form-control" value="{{ .Book.Author }}"
+                            placeholder="Masukan nama author...">
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" name="description" placeholder="Description text..."
+                                rows="3">
+                                {{ .Book.Description }}
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{end}}

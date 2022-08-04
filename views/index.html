@@ -1,0 +1,41 @@
+{{define "title"}}
+Index
+{{end}}
+
+{{define "main"}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a href="/create" class="btn btn-primary">Create Books List</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nama Buku</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Deskripsi</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range $index, $book := .Books}}
+                    <tr>
+                        <th scope="row">{{ $index  }}</th>
+                        <th scope="row">{{ $book.ID  }}</th>
+                        <td>{{$book.Name}}</td>
+                        <td>{{$book.Author}}</td>
+                        <td>{{$book.Description}}</td>
+                        <td>
+                            <a href="/update/{{ $book.ID }}" class="btn btn-success">Edit</a>
+                            |
+                            <a href="/delete/{{ $book.ID }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{{end}}
