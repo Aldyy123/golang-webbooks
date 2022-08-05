@@ -52,12 +52,14 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	db := sqliteDB()
+
 	if r.Method == "POST" {
 		book := Model.Books{
 			Name:        r.FormValue("name"),
 			Author:      r.FormValue("author"),
 			Description: r.FormValue("description"),
 		}
+
 		db.Create(&book)
 
 		http.Redirect(w, r, "/", http.StatusFound)
