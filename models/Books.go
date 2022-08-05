@@ -10,4 +10,5 @@ type Books struct {
 	Name        string
 	Author      string
 	Description string
+	ImageCover  string
 }

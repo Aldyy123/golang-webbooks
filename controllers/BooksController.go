@@ -1,8 +1,11 @@
 package BooksController
 
 import (
+	"fmt"
 	"html/template"
+	"io/ioutil"
 	"net/http"
+	"strings"
 
 	Model "project/models"
 
@@ -18,6 +21,34 @@ func sqliteDB() *gorm.DB {
 	}
 
 	return db
+}
+
+func uploadFile(w http.ResponseWriter, r *http.Request) string {
+	file, _, errForm := r.FormFile("cover_image")
+
+	if errForm != nil {
+		panic("Error FormFile: " + errForm.Error())
+	}
+
+	defer file.Close()
+
+	tempFile, errTemp := ioutil.TempFile("assets/images", "cover-*.png")
+
+	if errTemp != nil {
+		panic("Error TempDir: " + errTemp.Error())
+	}
+	defer tempFile.Close()
+
+	fileBytes, err := ioutil.ReadAll(file)
+
+	if err != nil {
+		panic("Error ReadAll: " + err.Error())
+	}
+
+	tempFile.Write(fileBytes)
+	var fileName = strings.Replace(tempFile.Name(), "assets", "static", -1)
+	fileName = strings.Replace(fileName, "\\", "/", -1)
+	return fileName
 }
 
 func renderTemplateHTML(htmlTmp string, w http.ResponseWriter, data interface{}) {
@@ -54,15 +85,20 @@ func Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	db := sqliteDB()
 
 	if r.Method == "POST" {
+		filename := uploadFile(w, r)
+		fmt.Println(filename)
+
 		book := Model.Books{
 			Name:        r.FormValue("name"),
 			Author:      r.FormValue("author"),
 			Description: r.FormValue("description"),
+			ImageCover:  filename,
 		}
 
 		db.Create(&book)
 
 		http.Redirect(w, r, "/", http.StatusFound)
+
 	} else {
 		renderTemplateHTML("create", w, nil)
 	}
