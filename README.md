@@ -23,6 +23,8 @@
 
 3. There it information a about server is running
 
+4. Create folder images on folder assets for temp images upload
+
 ---
 
 ### Link demo 
