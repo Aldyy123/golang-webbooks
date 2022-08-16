@@ -3,42 +3,44 @@ Index
 {{end}}
 
 {{define "main"}}
-<div class="container">
+<div class="container mt-3">
     <div class="row">
-        <div class="col">
-            <a href="/create" class="btn btn-primary">Create Books List</a>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nama Buku</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Deskripsi</th>
-                        <th scope="col">Cover</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{range $index, $book := .Books}}
-                    <tr>
-                        <th scope="row">{{ $index  }}</th>
-                        <th scope="row">{{ $book.ID  }}</th>
-                        <td>{{$book.Name}}</td>
-                        <td>{{$book.Author}}</td>
-                        <td>{{$book.Description}}</td>
-                        <td>
-                            <img src="{{$book.ImageCover}}" class="img-thumbnail" style="width: 150px;" alt="...">
-                        </td>
-                        <td>
-                            <a href="/update/{{ $book.ID }}" class="btn btn-success">Edit</a>
-                            |
-                            <a href="/delete/{{ $book.ID }}" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    {{end}}
-                </tbody>
-            </table>
+        <div class="col-12">
+            <a href="/create" class="btn btn-primary"><i class="bi bi-plus-square-fill"></i> Create Books List</a>
+            <div class="overflow-scroll">
+                <table class="table text-center mt-2 table-striped">
+                    <thead class="table-dark rounded-top">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nama Buku</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Cover</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range $index, $book := .Books}}
+                        <tr>
+                            <td scope="row">{{ $index  }}</td>
+                            <td scope="row">{{ $book.ID  }}</td>
+                            <td style="vertical-align: middle;">{{$book.Name}}</td>
+                            <td>{{$book.Author}}</td>
+                            <td>{{$book.Description}}</td>
+                            <td>
+                                <img src="/{{$book.ImageCover}}" class="img-thumbnail" style="width: 150px;" alt="...">
+                            </td>
+                            <td>
+                                <a href="/update/{{ $book.ID }}" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                |
+                                <a href="/delete/{{ $book.ID }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+                            </td>
+                        </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

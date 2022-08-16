@@ -3,22 +3,42 @@ Update Book
 {{end}}
 
 {{define "main"}}
-<div class="container">
+<div class="container mt-3">
     <div class="row">
+        <div class="col-12 d-flex justify-content-between flex-wrap">
+            <div>
+                <a href="/" class="btn btn-outline-info">
+                    <i class="bi bi-arrow-left"></i> Back
+                </a>
+            </div>
+            <div>
+                <h4>Update {{ .Book.Name }} Book Data</h4>
+            </div>
+        </div>
         <div class="col">
-            <form action="/update/{{ .Book.ID }}" method="post">
+            <hr>
+            {{ if .Error }}
+            <div class="alert alert-danger" role="alert">
+                {{.Error}}
+              </div>
+            {{end}}
+            <form action="/update/{{ .Book.ID }}" enctype="multipart/form-data" method="post">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Buku</label>
                             <input type="text" class="form-control" name="name" value="{{ .Book.Name }}"
                                 placeholder="Masukan nama buku...">
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <label for="authro" class="form-label">Author</label>
                         <input type="text" name="author" class="form-control" value="{{ .Book.Author }}"
                             placeholder="Masukan nama author...">
+                    </div>
+                    <div class="mb-3 col-lg-6 col-sm-12">
+                        <label for="formFile" class="form-label">Cover Book</label>
+                        <input class="form-control" type="file" name="cover_image" value="{{ .Book.ImageCover }}">
                     </div>
                     <div class="col-12">
                         <div class="mb-3">
@@ -30,7 +50,7 @@ Update Book
                         </div>
                     </div>
                     <div class="col-4">
-                        <input type="submit" value="Submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary">Update <i class="bi bi-send-fill"></i></button>
                     </div>
                 </div>
             </form>
