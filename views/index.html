@@ -8,6 +8,7 @@ Index
         <div class="col-12">
             <a href="/create" class="btn btn-primary"><i class="bi bi-plus-square-fill"></i> Create Books List</a>
             <div class="overflow-scroll">
+                {{if .Books }}
                 <table class="table text-center mt-2 table-striped">
                     <thead class="table-dark rounded-top">
                         <tr>
@@ -23,8 +24,8 @@ Index
                     <tbody>
                         {{range $index, $book := .Books}}
                         <tr>
-                            <td scope="row">{{ $index  }}</td>
-                            <td scope="row">{{ $book.ID  }}</td>
+                            <td scope="row">{{ $index }}</td>
+                            <td scope="row">{{ $book.ID }}</td>
                             <td style="vertical-align: middle;">{{$book.Name}}</td>
                             <td>{{$book.Author}}</td>
                             <td>{{$book.Description}}</td>
@@ -32,7 +33,8 @@ Index
                                 <img src="/{{$book.ImageCover}}" class="img-thumbnail" style="width: 150px;" alt="...">
                             </td>
                             <td>
-                                <a href="/update/{{ $book.ID }}" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                <a href="/update/{{ $book.ID }}" class="btn btn-success"><i
+                                        class="bi bi-pencil-square"></i></a>
                                 |
                                 <a href="/delete/{{ $book.ID }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
                             </td>
@@ -40,6 +42,9 @@ Index
                         {{end}}
                     </tbody>
                 </table>
+                {{else}}
+                <h3 class="text-center">Data Tidak ada, silahkan bikin data</h3>
+                {{end}}
             </div>
         </div>
     </div>
